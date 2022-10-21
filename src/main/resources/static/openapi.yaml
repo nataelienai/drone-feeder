@@ -1,0 +1,594 @@
+openapi: 3.0.1
+info:
+  title: Drone Feeder
+  version: 0.0.1-SNAPSHOT
+servers:
+- url: http://localhost:8080
+  description: API URL
+paths:
+  /drone:
+    post:
+      tags:
+      - Drone
+      summary: "Create a drone."
+      requestBody:
+        $ref: "#/components/requestBodies/DroneCreationBody"
+      responses:
+        "201":
+          description: "Drone created successfully." 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Drone"
+              examples:
+                example:
+                  $ref: "#/components/examples/DroneResponseBodyExample"
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+    get:
+      tags:
+      - Drone
+      summary: "List all drones."
+      responses:
+        "200":
+          description: "Drones returned successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DroneArray"
+              examples:
+                example:
+                  $ref: "#/components/examples/DroneArrayResponseBodyExample"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /drone/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: "The id of the drone."
+      required: true
+      schema:
+        $ref: "#/components/schemas/DroneId"
+    get:
+      tags:
+      - Drone
+      summary: "Get a drone by its id."
+      responses:
+        "200":
+          description: "Drone returned successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Drone"
+              examples:
+                example:
+                  $ref: "#/components/examples/DroneResponseBodyExample"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+    put:
+      tags:
+      - Drone
+      summary: "Update a drone by its id."
+      requestBody:
+        $ref: "#/components/requestBodies/DroneUpdateBody"
+      responses:
+        "200":
+          description: "Drone updated successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Drone"
+              examples:
+                example:
+                  $ref: "#/components/examples/DroneResponseBodyExample"
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+    delete:
+      tags:
+      - Drone
+      summary: "Delete a drone by its id."
+      responses:
+        "204":
+          description: "Drone deleted successfully."
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /delivery:
+    post:
+      tags:
+      - Delivery
+      summary: "Create a delivery."
+      requestBody:
+        $ref: "#/components/requestBodies/DeliveryCreationBody"
+      responses:
+        "201":
+          description: "Delivery created successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Delivery"
+              examples:
+                example:
+                  $ref: "#/components/examples/DeliveryResponseBodyExample"
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+    get:
+      tags:
+      - Delivery
+      summary: "List all deliveries."
+      responses:
+        "200":
+          description: "Deliveries returned successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeliveryArray"
+              examples:
+                example:
+                  $ref: "#/components/examples/DeliveryArrayResponseBodyExample"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /delivery/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: "The id of the delivery."
+      required: true
+      schema:
+        $ref: "#/components/schemas/DeliveryId"
+    get:
+      tags:
+      - Delivery
+      summary: "Get a delivery by its id."
+      responses:
+        "200":
+          description: "Delivery returned successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Delivery"
+              examples:
+                example:
+                  $ref: "#/components/examples/DeliveryResponseBodyExample"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+    put:
+      tags:
+      - Delivery
+      summary: "Update a delivery by its id."
+      requestBody:
+        $ref: "#/components/requestBodies/DeliveryUpdateBody"
+      responses:
+        "200":
+          description: "Delivery updated successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Delivery"
+              examples:
+                example:
+                  $ref: "#/components/examples/DeliveryResponseBodyExample"
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+    delete:
+      tags:
+      - Delivery
+      summary: "Delete a delivery by its id."
+      responses:
+        "204":
+          description: "Delivery deleted successfully."
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /delivery/{id}/drone/{droneId}:
+    parameters:
+    - name: id
+      in: path
+      description: "The id of the delivery."
+      required: true
+      schema:
+        $ref: "#/components/schemas/DeliveryId"
+    - name: droneId
+      in: path
+      description: "The id of the drone associated with the given delivery."
+      required: true
+      schema:
+        $ref: "#/components/schemas/DroneId"
+    patch:
+      tags:
+      - Delivery
+      summary: "Associate a drone to a delivery by their ids."
+      responses:
+        "200":
+          description: "Delivery updated successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Delivery"
+              examples:
+                example:
+                  $ref: "#/components/examples/ShippedDeliveryResponseBodyExample"
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /video:
+    get:
+      tags:
+      - Video
+      summary: "List all videos."
+      responses:
+        "200":
+          description: "Videos returned successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VideoArray"
+              examples:
+                example:
+                  $ref: "#/components/examples/VideoArrayResponseBodyExample"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /video/upload/delivery/{deliveryId}:
+    parameters:
+    - name: deliveryId
+      in: path
+      description: "The id of the delivery associated with the video."
+      required: true
+      schema:
+        $ref: "#/components/schemas/DeliveryId"
+    post:
+      tags:
+      - Video
+      summary: "Upload a video associated with a delivery."
+      requestBody:
+        $ref: "#/components/requestBodies/VideoUploadBody"
+      responses:
+        "200":
+          description: "Video uploaded successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Video"
+              examples:
+                example:
+                  $ref: "#/components/examples/VideoResponseBodyExample"
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /video/download/{id}:
+    parameters:
+    - name: id
+      in: path
+      description: "The id of the video to be downloaded"
+      required: true
+      schema:
+        $ref: "#/components/schemas/VideoId"
+    get:
+      tags:
+      - Video
+      summary: "Download a video."
+      responses:
+        "200":
+          description: "Video downloaded successfully."
+          content:
+            video/mp4: {}
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+components:
+  requestBodies:
+    DroneCreationBody:
+      description: "Data to create a drone."
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DroneRequestBody"
+          examples:
+            example:
+              $ref: "#/components/examples/DroneRequestBodyExample"
+    DroneUpdateBody:
+      description: "Data to update a drone."
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DroneRequestBody"
+          examples:
+            example:
+              $ref: "#/components/examples/DroneRequestBodyExample"
+    DeliveryCreationBody:
+      description: "Data to create a delivery."
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeliveryRequestBody"
+          examples:
+            example:
+              $ref: "#/components/examples/DeliveryRequestBodyExample"
+    DeliveryUpdateBody:
+      description: "Data to update a delivery."
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeliveryRequestBody"
+          examples:
+            example:
+              $ref: "#/components/examples/DeliveryRequestBodyExample"
+    VideoUploadBody:
+      description: "The delivery video."
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/VideoRequestBody"
+          examples:
+            example:
+              $ref: "#/components/examples/VideoRequestBodyExample"
+  examples:
+    DroneRequestBodyExample:
+      summary: "Request body example"
+      value:
+        latitude: "-23.5489"
+        longitude: "-46.6388"
+    DroneResponseBodyExample:
+      summary: "Response body example"
+      value:
+        id: 1
+        latitude: "-23.5489"
+        longitude: "-46.6388"
+    DroneArrayResponseBodyExample:
+      summary: "Response body example"
+      value:
+        - allOf:
+          - id: 1
+            latitude: "-23.5489"
+            longitude: "-46.6388"
+        - allOf:
+          - id: 2
+            latitude: "51.509865"
+            longitude: "-0.118092"
+    DeliveryRequestBodyExample:
+      summary: "Request body example"
+      value:
+        status: "READY"
+    DeliveryResponseBodyExample:
+      summary: "Response body example"
+      value:
+        id: 1
+        status: "READY"
+        statusLastModified: "2022-10-21T19:07:45.754Z"
+        drone: null
+        videoId: null
+    DeliveryArrayResponseBodyExample:
+      summary: "Response body example"
+      value:
+        - allOf:
+          - id: 1
+            status: "READY"
+            statusLastModified: "2022-10-21T14:58:05.028Z"
+            drone: null
+            videoId: null
+        - allOf:
+          - id: 2
+            status: "DELIVERED"
+            statusLastModified: "2022-10-21T18:12:08.011Z"
+            drone:
+              id: 3
+              latitude: "51.509865"
+              longitude: "-0.118092"
+            videoId: 4
+    ShippedDeliveryResponseBodyExample:
+      summary: "Response body example"
+      value:
+        id: 1
+        status: "SHIPPED"
+        statusLastModified: "2022-10-21T09:08:07.457Z"
+        drone:
+          id: 1
+          latitude: "-23.5489"
+          longitude: "-46.6388"
+        videoId: null
+    VideoRequestBodyExample:
+      summary: "Request body example"
+      value:
+        file: "delivery.mp4"
+    VideoResponseBodyExample:
+      summary: "Response body example"
+      value:
+        id: 1
+        filename: "delivery.mp4"
+        size: 1024
+        delivery:
+          status: "DELIVERED"
+          statusLastModified: "2022-10-19T21:30:08.044Z"
+          drone:
+            id: 2
+            latitude: "51.509865"
+            longitude: "-0.118092"
+          videoId: 1
+    VideoArrayResponseBodyExample:
+      summary: "Response body example"
+      value:
+        - allOf:
+          - id: 1
+            filename: "delivery1.mp4"
+            size: 1024
+            delivery:
+              status: "DELIVERED"
+              statusLastModified: "2022-10-19T21:30:08.044Z"
+              drone:
+                id: 2
+                latitude: "51.509865"
+                longitude: "-0.118092"
+              videoId: 1
+        - allOf:
+          - id: 2
+            filename: "delivery2.mp4"
+            size: 4096
+            delivery:
+              status: "DELIVERED"
+              statusLastModified: "2022-10-21T18:12:45.011Z"
+              drone:
+                id: 3
+                latitude: "-23.5489"
+                longitude: "-46.6388"
+              videoId: 2
+    InvalidRequestExample:
+      summary: "Error response example"
+      value:
+        message: "Invalid field value."
+    NotFoundExample:
+      summary: "Error response example"
+      value:
+        message: "Entity not found."
+    InternalServerErrorExample:
+      summary: "Error response example"
+      value:
+        message: "Internal Server Error."
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        message:
+          type: string
+    DroneId:
+      type: integer
+      format: int64
+    Drone:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/DroneId"
+        latitude:
+          type: string
+        longitude:
+          type: string
+    DroneArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Drone"
+    DroneRequestBody:
+      type: object
+      properties:
+        latitude:
+          type: string
+        longitude:
+          type: string
+    DeliveryId:
+      type: integer
+      format: int64
+    Delivery:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        status:
+          type: string
+          enum:
+          - READY
+          - SHIPPED
+          - DELIVERED
+        statusLastModified:
+          type: string
+          format: date-time
+        drone:
+          $ref: "#/components/schemas/Drone"
+        videoId:
+          type: integer
+          format: int64
+    DeliveryArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Delivery"
+    DeliveryRequestBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - READY
+          - SHIPPED
+          - DELIVERED
+    VideoId:
+      type: integer
+      format: int64
+    Video:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        fileName:
+          type: string
+        size:
+          type: integer
+          format: int64
+        delivery:
+          $ref: "#/components/schemas/Delivery"
+    VideoArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Video"
+    VideoRequestBody:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+  responses:
+    InvalidRequest:
+      description: "Invalid request format."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiError"
+          examples:
+            example:
+              $ref: "#components/examples/InvalidRequestExample"
+    NotFound:
+      description: "Requested resource was not found."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiError"
+          examples:
+            example:
+              $ref: "#/components/examples/NotFoundExample"
+    InternalServerError:
+      description: "Internal Server Error."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiError"
+          examples:
+            example:
+              $ref: "#/components/examples/InternalServerErrorExample"
