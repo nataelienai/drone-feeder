@@ -18,10 +18,6 @@ Este projeto foi desenvolvido como um desafio final da Aceleração em Java na T
 - [Como rodar a aplicação](#como-rodar-a-aplicação)
 - [Como rodar os testes](#como-rodar-os-testes)
 - [Documentação da API](#documentação-da-api)
-  - [Drone](#drone)
-  - [Delivery](#delivery)
-  - [Video](#video)
-- [Próximos passos](#próximos-passos)
 - [Autores](#autores)
 
 
@@ -44,10 +40,10 @@ O CTO da FutuereH confia muito na sua equipe e deu liberdade para eventuais melh
 
 # Tecnologias utilizadas
 
-- **Ferramentas:** Slack, VS Code, IntelliJ, Maven, Git e GitHub.
-- **Linguagem:** Java.
-- **Frameworks, bibliotecas e plugins:** Spring Boot, Spring Web, Spring Data JPA, Spring Boot Dev Tools, JUnit, CheckStyle e JaCoCo.
-- **Banco de dados:** MySQL e H2 (somente nos testes).
+- **Ferramentas:** Maven, Docker, Git e GitHub.
+- **Linguagem:** Java 11.
+- **Frameworks, bibliotecas e plugins:** Spring Boot, Spring Web, Spring Data JPA, Spring Boot Dev Tools, JUnit, CheckStyle, JaCoCo e SpringDoc OpenAPI.
+- **Banco de dados:** MySQL e H2 (este somente nos testes).
 
 
 # Dependências
@@ -99,153 +95,8 @@ mvn jacoco:report
 
 # Documentação da API
 
-## **Drone**
+Com a aplicação já em execução, acesse a documentação em seu navegador pela URL `http://localhost:8080/api-docs`.
 
-#### Cria o drone
-
-```http
-  POST /drone
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `null` | `null` | **Não é obrigatório** |
-
-#### Retorna todos os items
-
-```http
-  GET /drone
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `null` | `null` | **Não é obrigatório** |
-
-#### Retorna um item
-
-```http
-  GET /drone/{id}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id` | `long` | **Obrigatório**. O ID do item que você quer |
-
-#### Altera um item
-
-```http
-  PUT /drone/{id}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id` | `long` | **Obrigatório**. O ID do item que você quer |
-
-#### Deleta um item
-
-```http
-  DELETE /drone/{id}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id` | `long` | **Obrigatório**. O ID do item que você quer |
-
-## **Delivery**
-
-#### Cria o delivery
-
-```http
-  POST /
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `null` | `null` | **Não é obrigatório** |
-
-#### Retorna todos os items
-
-```http
-  GET /
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `null` | `null` | **Não é obrigatório** |
-
-
-#### Altera um item
-
-```http
-  PUT /{id}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id` | `long` | **Obrigatório**. O ID do item que você quer |
-
-#### Altera um drone
-
-```http
-  PUT /{id}/{droneId}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id, droneId` | `long` | **Obrigatório**. O ID do item que você quer |
-
-#### Deleta um item
-
-```http
-  DELETE /{id}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id` | `long` | **Obrigatório**. O ID do item que você quer |
-
-## **Video**
-
-#### Retorna todos os videos
-
-```http
-  GET /video
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `null` | `null` | **Não é obrigatório** |
-
-
-#### Envia um item
-
-```http
-  POST video/upload/delivery/{deliveryId}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `deliveryId` | `file` | **Obrigatório**. O video que você quer |
-
-#### Faz o donwload do arquivo
-
-```http
-  GET /download/{id}
-```
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id` | `long` | **Obrigatório**. O ID do item que você quer |
-
-# Próximos passos
-
-* Deploy 
-
-* Implementar o Front-End
-
-* Swagger 
-
-* Implementar arquitetura de microsserviços
 
 # Autores
 
